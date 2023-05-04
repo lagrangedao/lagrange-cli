@@ -11,7 +11,7 @@ def download_and_write_files(files_lst):
         filename = f['name'].split('/datasets/')[1]
 
         os.makedirs(os.path.dirname(filename), exist_ok=True)
-        print(filename)
+        print(f"Downloading: {filename}")
         url = f['url']
         with open(filename, "wb") as file:
             content_res = requests.get(url)
