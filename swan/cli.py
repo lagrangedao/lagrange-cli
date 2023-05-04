@@ -1,39 +1,14 @@
 import argparse
-import os
-import requests
 import sys
 import re
 
+from swan.clone import clone_dataset
 
 DATASET_PREFIX_URL = "https://lagrangedao.org/datasets"
-STATUS_200_OK = 200
-LAGRANG_API_URL = "https://api.lagrangedao.org"
-
-
-def clone_dataset(dataset_name):
-    res = requests.get(LAGRANG_API_URL + "/datasets/" + dataset_name)
-    if(res.status_code != STATUS_200_OK):
-        raise Exception("An error occured when trying to retrieve dataset")
-
-    os.makedirs(dataset_name, exist_ok=True)
-
-    for f in res.json()['data']['files']:
-        filename = f['name'].split('/datasets/')[1]
-        
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
-        print(filename)
-        url = f['url']
-        with open(filename, "wb") as file:
-            content_res = requests.get(url)
-            if(content_res.status_code == STATUS_200_OK):
-                file.write(content_res.content)
-            else:
-                print(f"Error retrieving and/or writing {filename}")
-            file.close()
 
 def main():
     parser = argparse.ArgumentParser()
-    subparser = parser.add_subparsers(title="Commands", metavar='' )
+    subparser = parser.add_subparsers(title="Commands", metavar='')
 
     #Clone command
     clone_parer = subparser.add_parser("clone", help = "\"swan clone -h\" for additional info")
@@ -41,7 +16,7 @@ def main():
 
     if len(sys.argv) <= 1:
         parser.print_help()
-        exit(-1)
+        sys.exit(-1)
 
     args = parser.parse_args() 
 
