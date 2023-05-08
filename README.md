@@ -1,3 +1,12 @@
+## Installation
+
+-  via `pip`
+- With lagrange-cli as the current work directory
+
+ ```
+pip install .
+ ```
+
 ## Usage
 
 ### Clone Dataset
@@ -34,11 +43,3 @@ Set API Token
 swan config --api-token <TOKEN>
 ```
 
-## Installation
-
--  via _pip_
-- In lagrange-cli directory
-
- ```
-pip install .
- ```
