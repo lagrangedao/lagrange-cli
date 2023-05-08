@@ -22,13 +22,17 @@ swan remove file1 file2 file3 ...
 ```
 swan commit -m "commit message"
 ```
-
 ### Push Dataset
 - Push comitted files to designated dataset
 ```
 swan clone https://lagrangedao.org/datasets/<dataset_name>
 ```
 
+### Config Commands
+Set API Token
+```
+swan config --api-token <TOKEN>
+```
 
 ## Installation
 

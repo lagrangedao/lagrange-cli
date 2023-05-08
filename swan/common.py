@@ -10,7 +10,7 @@ COMITTED = "Committed"
 LAST_UPDATED = "Updated"
 COMMIT_MSG = "CommitMessage"
 STATUS_200_OK = 200
-LAGRANGE_API_URL = "http://127.0.0.1:5002" #"https://api.lagrangedao.org"
+LAGRANGE_API_URL = "https://api.lagrangedao.org"
 FILES = "Files"
 
 def create_new_workspace(root):
