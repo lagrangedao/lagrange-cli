@@ -6,9 +6,9 @@ STATUS_200_OK = 200
 LAGRANGE_API_URL = "https://api.lagrangedao.org"
 
 # Download and write files 
-def download_and_write_files(files_lst):
+def download_and_write_files(files_lst, url_type):
     for f in files_lst:
-        filename = f['name'].split('/datasets/')[1]
+        filename = f['name'].split(f"/{url_type}/")[1]
 
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         print(f"Downloading: {filename}")
@@ -21,18 +21,18 @@ def download_and_write_files(files_lst):
                 print(f"Error retrieving and/or writing {filename}")
             file.close()
 
-# Clone provided dataset
-def clone_dataset(dataset_name):
-    res = requests.get(LAGRANGE_API_URL + "/datasets/" + dataset_name)
+# Clone provided dataset / space / model
+def clone(name, url_type):
+    res = requests.get(LAGRANGE_API_URL + f"/{url_type}/" + name)
     if(res.status_code != STATUS_200_OK):
-        raise Exception("An error occured when trying to retrieve dataset")
+        raise Exception(f"An error occured when trying to retrieve dataset. Status code: {res.status_code}.")
 
-    os.makedirs(dataset_name, exist_ok=True)
+    os.makedirs(name, exist_ok=True)
 
     #initialize concurrency structures
     files_lst = res.json()['data']['files']
     n_workers = 8
-    chunksize = round(len(files_lst) / n_workers)
+    chunksize = max(round(len(files_lst) / n_workers), 1)
     futures = []
 
     #Concurrently batch process the files
@@ -40,7 +40,7 @@ def clone_dataset(dataset_name):
         with ProcessPoolExecutor(n_workers) as exe:
             for i in range(0, len(files_lst), chunksize):
                 files = files_lst[i:(i + chunksize)]
-                futures.append(exe.submit(download_and_write_files, files))
+                futures.append(exe.submit(download_and_write_files, files, url_type))
     except KeyboardInterrupt:
         for f in futures:
             f.cancel()
