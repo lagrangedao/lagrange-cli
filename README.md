@@ -1,10 +1,11 @@
 ## Installation
 
--  via `pip`
 - With lagrange-cli as the current work directory
 
  ```
-pip install .
+ git clone git@github.com:lagrangedao/lagrange-cli.git
+ cd lagrange-cli
+ pip install .
  ```
 
 ## Usage
