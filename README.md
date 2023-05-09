@@ -20,6 +20,10 @@ swan clone https://lagrangedao.org/datasets/<dataset_name>
 ```
 swan add file1 file2 file3 ...
 ```
+- To add all files in current directory and subdirectories
+```
+swan add .
+```
 
 ### Remove Added Files
 - Removes added files
