@@ -16,7 +16,7 @@ PUSH_CMD = "push"
 CFG_CMD = "config"
 RM_CMD = "remove"
 URL_HELP = "URL must be in the format of: https://lagrangedao.org/<datasets or spaces or models>/<name>"
-URL_PATTERN =  "https:\/\/lagrangedao\.org\/(datasets|spaces|models)\/\w+$" #regex pattern url must follow
+URL_PATTERN =  "https:\/\/lagrangedao\.org\/(datasets|spaces|models)\/\w+(-\w+)*$" #regex pattern url must follow
 
 
 #Precondition: url follows URL_PATTERN
