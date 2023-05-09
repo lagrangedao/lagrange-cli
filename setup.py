@@ -5,7 +5,7 @@ setup(
     install_requires= [
         "requests>=2.28.0"
     ],
-    version='1.1',
+    version='1.2',
     description='A CLI tool that allows you to interact with lagrange datasets, models, and spaces all from the command line.',
     package_data={'': ['config.json', 'data.json']},
     include_package_data=True,
