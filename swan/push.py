@@ -15,7 +15,7 @@ def get_latest_commit(data, cwd):
 
     return latest_commit
 
-def push(dataset_name):
+def push(name, url_type):
     api_token = get_api_token()
     if api_token == None:
         print("Please set your api token with \"swan config --api-token <YOUR_TOKEN>\"")
@@ -32,12 +32,18 @@ def push(dataset_name):
         with open(filename, 'rb') as f:
             files_data.append(('file', (filename, f.read())))
     
-    print("Uploading files to dataset...")
+    print(f"Uploading files to {url_type[:-1]}...")
+
+    if url_type == "spaces":
+        url_type = "spaces_task"
+
     res = requests.put(
-        LAGRANGE_API_URL + "/datasets/" + dataset_name + "/files", 
+        LAGRANGE_API_URL + f"/{url_type}/" + name + "/files", 
         files=files_data,
         headers = {"Authorization" : "Bearer " + api_token}
         )
 
     if res.status_code != STATUS_200_OK:
         print(f"An error occured when pushing the files. Status code {res.status_code}")
+    else:
+        print(f"Push to {name} complete.")

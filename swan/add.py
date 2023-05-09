@@ -7,14 +7,23 @@ from swan.common import DATA_FILE, ADDED, LAST_UPDATED, get_dir_data
 
 def add_files(files):
 
-    nonfiles = []
-    for f in files:
-        if not os.path.isfile(f):
-            nonfiles.append(f)
+    if len(files) == 1 and files[0] == '.':
+        files = []
+        for path, _, files2 in os.walk('.'):
+            for name in files2:
+                raw_filepath = os.path.join(path, name);
+                filepath = raw_filepath.split(".\\")[1]
+                files.append(filepath)
 
-    if len(nonfiles) > 0:
-        print(f"Attempted to add invalid files: {nonfiles}")
-        return
+    else:
+        nonfiles = []
+        for f in files:
+            if not os.path.isfile(f):
+                nonfiles.append(f)
+
+        if len(nonfiles) > 0:
+            print(f"Attempted to add invalid files: {nonfiles}")
+            return
 
     cwd = os.getcwd();
     data = get_dir_data(cwd)
