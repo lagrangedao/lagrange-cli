@@ -25,6 +25,11 @@ def push(name, url_type):
     data = get_dir_data(cwd)
 
     latest_commit = get_latest_commit(data, cwd)
+
+    if latest_commit == None:
+        print("There currently are no commits to push")
+        return
+
     files = data[cwd][COMMITS][latest_commit][FILES]
 
     files_data = []
