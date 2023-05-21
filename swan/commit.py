@@ -26,12 +26,15 @@ def commit(commit_msg):
         print("The current working directory has no added files to commit. \"swan add -h\" for more info. ")
         return
 
-    hash = hash_files(added_files)
+    # If windows file path, change to linux file path
+    if os.sep == "\\":
+        added_files =  list(map( lambda f : f.replace("\\", "/"), added_files))
 
+    hash = hash_files(added_files)
 
     #create new commit
     commit = {
-        "Files": data[cwd][ADDED],
+        "Files": added_files,
         COMMIT_MSG : commit_msg,
         "CreatedAt": str(datetime.now())
     }
