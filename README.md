@@ -10,41 +10,41 @@
 
 ## Usage
 
-### Clone Dataset
-- Clones provided dataset into current directory
+### Clone Lagrange Repo
+- Clones provided Lagrange repo into current directory
 ```
-swan clone https://lagrangedao.org/datasets/<dataset_name>
+lag clone https://lagrangedao.org/<type>/<wallet_address>/<name>
 ```
 ### Add Files
 - Add files to be comitted
 ```
-swan add file1 file2 file3 ...
+lag add file1 file2 file3 ...
 ```
 - To add all files in current directory and subdirectories
 ```
-swan add .
+lag add .
 ```
 
 ### Remove Added Files
 - Removes added files
 ```
-swan remove file1 file2 file3 ...
+lag remove file1 file2 file3 ...
 ```
 
 ### Commit Files
 - Commit added files to be pushed
 ```
-swan commit -m "commit message"
+lag commit -m "commit message"
 ```
 ### Push Dataset
 - Push comitted files to designated dataset
 ```
-swan clone https://lagrangedao.org/datasets/<dataset_name>
+lag clone https://lagrangedao.org/<type>/<wallet_address>/<name>
 ```
 
 ### Config Commands
 Set API Token
 ```
-swan config --api-token <TOKEN>
+lag config --api-token <TOKEN>
 ```
 
