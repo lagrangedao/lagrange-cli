@@ -1,9 +1,9 @@
 from concurrent.futures import ProcessPoolExecutor
 import os
 import requests
+from lag.common import LAGRANGE_API_URL
 
 STATUS_200_OK = 200
-LAGRANGE_API_URL = "https://api.lagrangedao.org"
 
 # Download and write files 
 def download_and_write_files(files_lst, url_type):
@@ -22,8 +22,8 @@ def download_and_write_files(files_lst, url_type):
             file.close()
 
 # Clone provided dataset / space / model
-def clone(name, url_type):
-    res = requests.get(LAGRANGE_API_URL + f"/{url_type}/" + name)
+def clone(name, wallet_address, url_type):
+    res = requests.get(f"{LAGRANGE_API_URL}/{url_type}/{wallet_address}/{name}")# LAGRANGE_API_URL + f"/{url_type}/" + name)
     if(res.status_code != STATUS_200_OK):
         raise Exception(f"An error occured when trying to retrieve dataset. Status code: {res.status_code}.")
 

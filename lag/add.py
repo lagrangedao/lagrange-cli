@@ -2,7 +2,7 @@ import os
 import json
 from datetime import datetime
 
-from swan.common import DATA_FILE, ADDED, LAST_UPDATED, get_dir_data
+from lag.common import DATA_FILE, ADDED, LAST_UPDATED, get_dir_data
 
 
 def add_files(files):
@@ -12,7 +12,7 @@ def add_files(files):
         for path, _, files2 in os.walk('.'):
             for name in files2:
                 raw_filepath = os.path.join(path, name);
-                filepath = raw_filepath.split(".\\")[1]
+                filepath = raw_filepath.split(f".{os.sep}")[1]
                 files.append(filepath)
 
     else:

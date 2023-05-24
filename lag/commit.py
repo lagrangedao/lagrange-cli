@@ -1,4 +1,4 @@
-from swan.common import DATA_FILE, COMMITS, COMMIT_MSG, ADDED, LAST_UPDATED, get_dir_data
+from lag.common import DATA_FILE, COMMITS, COMMIT_MSG, ADDED, LAST_UPDATED, get_dir_data
 import os
 import hashlib
 import json
@@ -23,7 +23,7 @@ def commit(commit_msg):
     added_files = data[cwd][ADDED]
 
     if len(added_files) == 0:
-        print("The current working directory has no added files to commit. \"swan add -h\" for more info. ")
+        print("The current working directory has no added files to commit. \"lag add -h\" for more info. ")
         return
 
     # If windows file path, change to linux file path

@@ -11,7 +11,7 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'swan = swan.cli:main',
+            'lag = lag.cli:main',
         ]
     },
     packages=find_packages(),

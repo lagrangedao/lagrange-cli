@@ -1,8 +1,8 @@
 import os
 import requests
 
-from swan.common import get_dir_data, COMMITS, FILES, LAGRANGE_API_URL, get_config, STATUS_200_OK
-from swan.config import get_api_token
+from lag.common import get_dir_data, COMMITS, FILES, LAGRANGE_API_URL, get_config, STATUS_200_OK
+from lag.config import get_api_token
 
 #get hash of latest (most recent) commit
 def get_latest_commit(data, cwd):
@@ -18,7 +18,7 @@ def get_latest_commit(data, cwd):
 def push(name, url_type):
     api_token = get_api_token()
     if api_token == None:
-        print("Please set your api token with \"swan config --api-token <YOUR_TOKEN>\"")
+        print("Please set your api token with \"lag config --api-token <YOUR_TOKEN>\"")
         return
 
     cwd = os.getcwd()
@@ -41,6 +41,9 @@ def push(name, url_type):
 
     if url_type == "spaces":
         url_type = "spaces_task"
+
+    if url_type == "datasets":
+        url_type = "datasets_api"
 
     res = requests.put(
         LAGRANGE_API_URL + f"/{url_type}/" + name + "/files", 

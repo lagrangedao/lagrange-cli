@@ -1,6 +1,6 @@
 import json
 
-from swan.common import get_config, CFG_FILE
+from lag.common import get_config, CFG_FILE
 
 API_TOKEN = "api_token"
 
