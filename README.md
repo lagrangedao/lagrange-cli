@@ -16,6 +16,13 @@
 ```
 lag clone https://lagrangedao.org/<type>/<wallet_address>/<name>
 ```
+### Pull Lagrange Repo
+- Pulls latest version of a lagrange repo
+- Must be done inside a cloned / initialized lagrange repo
+```
+cd some-cloned-dataset
+lag pull
+```
 ### Add Files
 - Add files to be comitted
 - Must be done inside a cloned lagrange repo
