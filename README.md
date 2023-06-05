@@ -39,7 +39,7 @@ lag commit -m "commit message"
 ### Push Dataset
 - Push comitted files to designated dataset
 ```
-lag clone https://lagrangedao.org/<type>/<wallet_address>/<name>
+lag push https://lagrangedao.org/<type>/<wallet_address>/<name>
 ```
 
 ### Config Commands
