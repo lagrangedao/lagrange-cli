@@ -23,6 +23,8 @@ def push(name, url_type):
 
     cwd = os.getcwd()
     data = get_dir_data(cwd)
+    if data is None:
+        return
 
     latest_commit = get_latest_commit(data, cwd)
 
@@ -41,9 +43,6 @@ def push(name, url_type):
 
     if url_type == "spaces":
         url_type = "spaces_task"
-
-    if url_type == "datasets":
-        url_type = "datasets_api"
 
     res = requests.put(
         LAGRANGE_API_URL + f"/{url_type}/" + name + "/files", 

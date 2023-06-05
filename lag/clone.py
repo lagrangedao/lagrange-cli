@@ -1,32 +1,18 @@
 from concurrent.futures import ProcessPoolExecutor
 import os
 import requests
-from lag.common import LAGRANGE_API_URL
-
-STATUS_200_OK = 200
-
-# Download and write files 
-def download_and_write_files(files_lst, url_type):
-    for f in files_lst:
-        filename = f['name'].split(f"/{url_type}/")[1]
-
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
-        print(f"Downloading: {filename}")
-        url = f['url']
-        with open(filename, "wb") as file:
-            content_res = requests.get(url)
-            if(content_res.status_code == STATUS_200_OK):
-                file.write(content_res.content)
-            else:
-                print(f"Error retrieving and/or writing {filename}")
-            file.close()
+import json
+from lag.common import LAGRANGE_API_URL, STATUS_200_OK, PREFIX_URL, download_and_write_files, create_new_workspace
 
 # Clone provided dataset / space / model
 def clone(name, wallet_address, url_type):
-    res = requests.get(f"{LAGRANGE_API_URL}/{url_type}/{wallet_address}/{name}")# LAGRANGE_API_URL + f"/{url_type}/" + name)
+    res = requests.get(f"{LAGRANGE_API_URL}/{url_type}/{wallet_address}/{name}")
     if(res.status_code != STATUS_200_OK):
-        raise Exception(f"An error occured when trying to retrieve dataset. Status code: {res.status_code}.")
+        raise Exception(f"An error occured when trying to clone code. Status code: {res.status_code}.")
 
+    origin_url = f"{PREFIX_URL}{url_type}/{wallet_address}/{name}"
+    print(f"Cloning {name} into current directory...")
+    create_new_workspace(os.path.join(os.getcwd(), name), origin_url)
     os.makedirs(name, exist_ok=True)
 
     #initialize concurrency structures

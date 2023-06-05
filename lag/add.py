@@ -27,7 +27,11 @@ def add_files(files):
 
     cwd = os.getcwd();
     data = get_dir_data(cwd)
-    
+
+    # If cwd isn't initialized, get_dir_data prints error and returns None
+    if data is None:
+        return
+
     data[cwd][ADDED] = list(set(data[cwd][ADDED] + files))
     data[cwd][LAST_UPDATED] = str(datetime.now())
 
@@ -46,6 +50,10 @@ def remove_files(files):
 
     cwd = os.getcwd();
     data = get_dir_data(cwd)
+
+    # If cwd isn't initialized, get_dir_data prints error and returns None
+    if data is None:
+        return
 
     added_files = data[cwd][ADDED]
 
