@@ -19,6 +19,9 @@ def hash_files(filepaths):
 def commit(commit_msg):
     cwd = os.getcwd();
     data = get_dir_data(cwd)
+    if data is None:
+        return
+
 
     added_files = data[cwd][ADDED]
 

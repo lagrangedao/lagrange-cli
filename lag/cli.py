@@ -6,26 +6,19 @@ from lag.clone import clone
 from lag.add import add_files, remove_files
 from lag.commit import commit
 from lag.push import push
+from lag.pull import pull
 from lag.config import set_api_token
+from lag.common import URL_PATTERN, data_from_url, url_type
 
-PREFIX_URL = "https://lagrangedao.org/"
 CLONE_CMD = "clone"
 ADD_CMD = "add"
 COMMIT_CMD = "commit"
 PUSH_CMD = "push"
 CFG_CMD = "config"
 RM_CMD = "remove"
+PULL_CMD = "pull"
 URL_HELP = "URL must be in the format of: https://lagrangedao.org/<datasets or spaces or models>/<wallet_address>/<name>"
-URL_PATTERN =  "https:\/\/lagrangedao\.org\/(datasets|spaces|models)\/\w+\/\w+(-\w+)*$" #regex pattern url must follow
 
-#Precondition: url follows URL_PATTERN
-def data_from_url(url):
-    return url.split(PREFIX_URL + url_type(url))[1].split("/")[1:3]
-
-#Precondition: url follows URL_PATTERN
-def url_type(url):
-    match = re.match(URL_PATTERN, url)
-    return match.group(1)
 
 def main():
     parser = argparse.ArgumentParser()
@@ -60,6 +53,14 @@ def main():
     remove_parser = subparser.add_parser(RM_CMD, help = f"Remove added files. \"lag {RM_CMD} -h\" for additional info")
     remove_arg = remove_parser.add_argument("files", nargs="+",  help="Files to be removed. The file paths should be relative to current working directory.")
 
+    #pull command
+    pull_parser = subparser.add_parser(PULL_CMD, 
+    help = """
+        Pull the latest version of a lagrange dataset/space/model into the current directory. 
+        This may potentially overwrite any changes made to local versions of these files.
+        """
+    )
+
     if len(sys.argv) <= 1:
         parser.print_help()
         sys.exit(-1)
@@ -90,7 +91,8 @@ def main():
             set_api_token(args.api_token)
     elif cmd == RM_CMD:
         remove_files(args.files)
-        
+    elif cmd == PULL_CMD:
+        pull()
 
 if __name__ == "__main__":
     main()
