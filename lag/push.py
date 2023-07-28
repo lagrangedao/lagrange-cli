@@ -44,8 +44,8 @@ def push(name, url_type):
     if url_type == "spaces":
         url_type = "spaces_task"
 
-    res = requests.put(
-        LAGRANGE_API_URL + f"/{url_type}/" + name + "/files", 
+    res = requests.post(
+        LAGRANGE_API_URL + f"/{url_type}/" + name + "/files/upload", 
         files=files_data,
         headers = {"Authorization" : "Bearer " + api_token}
         )
