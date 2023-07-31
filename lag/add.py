@@ -56,11 +56,14 @@ def remove_files(files):
         return
 
     added_files = data[cwd][ADDED]
-
+    new_added_files = added_files
     for file in files:
-        added_files.remove(file)
+        if file in new_added_files:
+            new_added_files.remove(file)
+        else:
+            print(f"{file} is not added.")
 
-    data[cwd][ADDED] = added_files
+    data[cwd][ADDED] = new_added_files
     data[cwd][LAST_UPDATED] = str(datetime.now())
 
     json.dump(data, open(DATA_FILE, "w"))
