@@ -2,6 +2,8 @@ import os
 import json
 import requests
 import re
+import gzip
+import io
 from datetime import datetime
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), "data.json")
@@ -12,7 +14,7 @@ COMITTED = "Committed"
 LAST_UPDATED = "Updated"
 COMMIT_MSG = "CommitMessage"
 STATUS_200_OK = 200
-LAGRANGE_API_URL = "https://api.lagrangedao.org"
+LAGRANGE_API_URL = "http://localhost:5002"#"https://api.lagrangedao.org"
 FILES = "Files"
 STATUS_200_OK = 200
 PREFIX_URL = "https://lagrangedao.org/"
@@ -80,3 +82,17 @@ def download_and_write_files(files_lst, url_type, include_prefix = True):
             else:
                 print(f"Error retrieving and/or writing {filename}")
             file.close()
+
+def compress_file_contents(input_file):
+    with open(input_file, 'rb') as f_in:
+        compressed_data = io.BytesIO()
+        with gzip.GzipFile(fileobj=compressed_data, mode='wb') as f_out:
+            f_out.writelines(f_in)
+        
+        return compressed_data.getvalue()
+
+def decompress_data(compressed_data):
+    with gzip.GzipFile(fileobj=io.BytesIO(compressed_data), mode='rb') as f_in:
+        decompressed_data = f_in.read()
+    
+    return decompressed_data
