@@ -1,7 +1,7 @@
 import os
 import requests
 
-from lag.common import get_dir_data, COMMITS, FILES, LAGRANGE_API_URL, get_config, STATUS_200_OK
+from lag.common import get_dir_data, COMMITS, FILES, LAGRANGE_API_URL, compress_file_contents, STATUS_200_OK
 from lag.config import get_api_token
 
 #get hash of latest (most recent) commit
@@ -33,16 +33,14 @@ def push(name, url_type):
         return
 
     files = data[cwd][COMMITS][latest_commit][FILES]
-
     files_data = []
     for filename in files:
         with open(filename, 'rb') as f:
-            files_data.append(('file', (filename, f.read())))
+            # compress the file's contents to upload
+            compressed_contents = compress_file_contents(filename)
+            files_data.append(('file', (filename, compressed_contents)))
     
     print(f"Uploading files to {url_type[:-1]}...")
-
-    if url_type == "spaces":
-        url_type = "spaces_task"
 
     res = requests.post(
         LAGRANGE_API_URL + f"/{url_type}/" + name + "/files/upload", 
