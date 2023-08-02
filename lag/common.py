@@ -12,12 +12,12 @@ COMITTED = "Committed"
 LAST_UPDATED = "Updated"
 COMMIT_MSG = "CommitMessage"
 STATUS_200_OK = 200
-LAGRANGE_API_URL = "https://api.lagrangedao.org"
+LAGRANGE_API_URL = "https://test-api.lagrangedao.org"
 FILES = "Files"
 STATUS_200_OK = 200
-PREFIX_URL = "https://lagrangedao.org/"
+PREFIX_URL = "https://testnet.lagrangedao.org/"
 ORIGIN_URL = "Origin"
-URL_PATTERN =  "https:\/\/lagrangedao\.org\/(datasets|spaces|models)\/\w+\/\w+(-\w+)*$" #regex pattern url must follow
+URL_PATTERN =  "https:\/\/testnet.lagrangedao\.org\/(datasets|spaces|models)\/\w+\/\w+(-\w+)*$" #regex pattern url must follow
 
 #Precondition: url follows URL_PATTERN
 def data_from_url(url):
