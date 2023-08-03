@@ -41,9 +41,6 @@ def push(name, url_type):
     
     print(f"Uploading files to {url_type[:-1]}...")
 
-    if url_type == "spaces":
-        url_type = "spaces_task"
-
     res = requests.post(
         LAGRANGE_API_URL + f"/{url_type}/" + name + "/files/upload", 
         files=files_data,
