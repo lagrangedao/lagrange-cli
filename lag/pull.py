@@ -12,14 +12,14 @@ def pull():
 
     wallet_address, name = data_from_url(data[cwd][ORIGIN_URL])
     urlType = url_type(data[cwd][ORIGIN_URL])
-    
-    print(f"{LAGRANGE_API_URL}/{urlType}/{wallet_address}/{name}")
-    res = requests.get(f"{LAGRANGE_API_URL}/{urlType}/{wallet_address}/{name}")
+    res = requests.get(f"{LAGRANGE_API_URL}/{urlType}/{wallet_address}/{name}/files")
+
+
     if(res.status_code != STATUS_200_OK):
         raise Exception(f"An error occured when trying to pull code. Status code: {res.status_code}.")
 
     #initialize concurrency structures
-    files_lst = res.json()['data']['files']
+    files_lst = res.json()["data"]
     n_workers = 8
     chunksize = max(round(len(files_lst) / n_workers), 1)
     futures = []

@@ -6,7 +6,7 @@ from lag.common import LAGRANGE_API_URL, STATUS_200_OK, PREFIX_URL, download_and
 
 # Clone provided dataset / space / model
 def clone(name, wallet_address, url_type):
-    res = requests.get(f"{LAGRANGE_API_URL}/{url_type}/{wallet_address}/{name}")
+    res = requests.get(f"{LAGRANGE_API_URL}/{url_type}/{wallet_address}/{name}/files")
     if(res.status_code != STATUS_200_OK):
         raise Exception(f"An error occured when trying to clone code. Status code: {res.status_code}.")
 
@@ -16,7 +16,7 @@ def clone(name, wallet_address, url_type):
     os.makedirs(name, exist_ok=True)
 
     #initialize concurrency structures
-    files_lst = res.json()['data']['files']
+    files_lst = res.json()["data"]
     n_workers = 8
     chunksize = max(round(len(files_lst) / n_workers), 1)
     futures = []
